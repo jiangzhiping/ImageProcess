@@ -38,3 +38,10 @@ BOOL CImgProcess:ParLinTran(CImgProcess *pTo,BYTE x1,BYTE x2,BYTE y1,BYTE y2)
 	return TRUE;
 
 }
+
+//输出的临时对象
+CImgProcess imgOutput=imgInput;
+//分段线性变换
+imgInput.ParLinTran(&imgOutput,dlg.m_bS1,dlg.m_bS2,dlg.m_bT1,dlg.m_bT2);
+//将结果返回给文档类
+pDoc->mImage=imgOutput;
