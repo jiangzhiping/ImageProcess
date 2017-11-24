@@ -36,7 +36,12 @@ void CImgProcess::MedianFilter(CImgProcess *pTo,int nFilterH,int nFilterW,int nF
 				}
 			}
 			nGray=GetMedianValue(pAryGray,nFilterH*nFilterW);//通过排序获取中值
-			pTo->SetPixel(j,i,RGB(nGray,nGray,nGray));//以中值作为响应
+
+			//判断当前像素是否是领域的极大或极小值
+			if((GetGray(j,i)==pAryGray[0])||(GetGray(j,i)==pAryGray[nFilterH*nFilterW-1]))
+				pTo->SetPixel(j,i,RGB(nGray,nGray,nGray));//以中值作为响应
+			else
+				pTo->SetPixel(j,i,GetGray(j,i));//不是极值则不改变原图像的值
 		}
 	}
 	delete[] pAryGray;
